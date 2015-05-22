@@ -1,18 +1,13 @@
 {
-  "name": "dektrium/yii2-rbac",
-  "description": "RBAC manager for Yii2",
-  "keywords": ["yii2", "yii2-rbac", "rbac management", "dektrium", "rbac gui", "yii rbac", "rbac module"],
+  "name": "wayhood/yii2-rbac",
+  "description": "rbac",
+  "keywords": ["yii2", "yii2-rbac", "rbac management"],
   "type": "yii2-extension",
   "license": "MIT",
-  "support": {
-    "issues": "https://github.com/dektrium/yii2-rbac/issues?state=open",
-    "source": "https://github.com/dektrium/yii2-rbac"
-  },
   "authors": [
     {
-      "name": "Dmitry Erofeev",
-      "email": "dmeroff@gmail.com",
-      "homepage": "http://dmeroff.ru"
+      "name": "netyum",
+      "email": "netyum@163.com",
     }
   ],
   "minimum-stability": "dev",
@@ -21,10 +16,10 @@
   },
   "autoload": {
     "psr-4": {
-      "dektrium\\rbac\\": ""
+      "wh\\rbac\\": ""
     }
   },
   "extra": {
-    "bootstrap": "dektrium\\rbac\\Bootstrap"
+    "bootstrap": "wh\\rbac\\Bootstrap"
   }
 }
