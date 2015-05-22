@@ -3,13 +3,12 @@
 namespace wh\rbac;
 
 use Yii;
-use yii\base\Module as BaseModule;
 use yii\filters\AccessControl;
 
 /**
  * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class Module extends BaseModule
+class Module extends \yii\base\Module
 {
     /** @var bool Whether to show flash messages */
     public $enableFlashMessages = true;
