@@ -1,34 +1,41 @@
 <?php
-/**
- * @link http://www.wayhood.com/
- */
 
 namespace wh\rbac;
 
 use Yii;
-use yii\base\BootstrapInterface;
+use yii\base\Module as BaseModule;
+use yii\filters\AccessControl;
 
 /**
- * Class Module
- * @package wh\rbac
- * @author Song Yeung <netyum@163.com>
- * @date 12/20/14
+ * @author Dmitry Erofeev <dmeroff@gmail.com>
  */
-class Module extends \yii\base\Module implements BootstrapInterface
+class Module extends BaseModule
 {
-    public function bootstrap($app)
+    /** @var bool Whether to show flash messages */
+    public $enableFlashMessages = true;
+
+    /** @var string */
+    public $defaultRoute = 'role/index';
+    
+    /** @var array */
+    public $admins = [];
+    
+    /** @inheritdoc */
+    public function behaviors()
     {
-        /*if ($app instanceof \yii\web\Application) {
-            $app->getUrlManager()->addRules([
-                $this->id => $this->id . '/default/index',
-                $this->id . '/<id:\w+>' => $this->id . '/default/view',
-                $this->id . '/<controller:[\w\-]+>/<action:[\w\-]+>' => $this->id . '/<controller>/<action>',
-            ], false);
-        } elseif ($app instanceof \yii\console\Application) {
-            $app->controllerMap[$this->id] = [
-                'class' => 'wh\asynctask\console\AsyncTaskController',
-                'module' => $this,
-            ];
-        }*/
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return in_array(Yii::$app->user->identity->username, $this->admins);
+                        },
+                    ]
+                ],
+            ],
+        ];
     }
 }
