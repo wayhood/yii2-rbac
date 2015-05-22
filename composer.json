@@ -3,14 +3,13 @@
   "description": "rbac",
   "keywords": ["yii2", "yii2-rbac", "rbac management"],
   "type": "yii2-extension",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "authors": [
     {
       "name": "netyum",
-      "email": "netyum@163.com",
+      "email": "netyum@163.com"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "yiisoft/yii2": "2.0.*"
   },
@@ -20,6 +19,10 @@
     }
   },
   "extra": {
-    "bootstrap": "wh\\rbac\\Bootstrap"
+    "bootstrap": "wh\\rbac\\Bootstrap",
+    "asset-installer-paths": {
+        "npm-asset-library": "vendor/npm",
+        "bower-asset-library": "vendor/bower"
+    }
   }
 }
