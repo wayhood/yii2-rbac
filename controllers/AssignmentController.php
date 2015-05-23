@@ -6,9 +6,7 @@ use wh\rbac\models\Assignment;
 use Yii;
 use yii\web\Controller;
 
-/**
- * @author Dmitry Erofeev <dmeroff@gmail.com>
- */
+
 class AssignmentController extends Controller
 {
     /**
@@ -26,7 +24,7 @@ class AssignmentController extends Controller
         if ($model->load(\Yii::$app->request->post()) && $model->updateAssignments()) {
         }
 
-        return \dektrium\rbac\widgets\Assignments::widget([
+        return \wh\rbac\widgets\Assignments::widget([
             'model' => $model,
         ]);
         /*$model = Yii::createObject([
