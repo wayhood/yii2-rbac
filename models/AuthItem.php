@@ -5,6 +5,7 @@ namespace wh\rbac\models;
 use yii\base\Model;
 use yii\rbac\Item;
 use wh\rbac\validators\RbacValidator;
+use Yii;
 
 abstract class AuthItem extends Model
 {
@@ -23,7 +24,7 @@ abstract class AuthItem extends Model
     /** @var \yii\rbac\Item */
     public $item;
 
-    /** @var \dektrium\rbac\components\DbManager */
+    /** @var \yii\rbac\DbManager */
     protected $manager;
 
     /** @inheritdoc */
@@ -112,18 +113,33 @@ abstract class AuthItem extends Model
         } else {
             $this->item->ruleName = null;
         }
-  
+
+        $createdFlashMessage = '';
+        $updatedFlashMessage = '';
+        if ($this->item->type = Item::TYPE_PERMISSION) {
+            $createdFlashMessage = Yii::t('rbac', 'Permission has been created');
+            $updatedFlashMessage = Yii::t('rbac', 'Permission has been updated');
+        } else if ($this->item->type = Item::TYPE_ROLE) {
+            $createdFlashMessage = Yii::t('rbac', 'Role has been updated');
+            $updatedFlashMessage = Yii::t('rbac', 'Role has been updated');
+        }
+
         if ($isNewItem) {
-            \Yii::$app->session->setFlash('success', \Yii::t('rbac', 'Item has been created'));
+            \Yii::$app->session->setFlash('success', $createdFlashMessage);
             $this->manager->add($this->item);
         } else {
-            \Yii::$app->session->setFlash('success', \Yii::t('rbac', 'Item has been updated'));
+            \Yii::$app->session->setFlash('success', $updatedFlashMessage);
             $this->manager->update($oldName, $this->item);
         }
 
+        $this->manager->removeChildren($this->item);
         if (is_array($this->children)) {
             foreach ($this->children as $name) {
-                $child = $this->manager->getItem($name);
+                if ($this->item->type = Item::TYPE_PERMISSION) {
+                    $child = $this->manager->getPermission($name);
+                } else if ($this->item->type = Item::TYPE_ROLE) {
+                    $child = $this->manager->getRole($name);
+                }
                 if ($this->manager->hasChild($this->item, $child) == false) {
                     $this->manager->addChild($this->item, $child);
                 }
@@ -143,4 +159,18 @@ abstract class AuthItem extends Model
      * @return \yii\rbac\Item
      */
     abstract protected function createItem($name);
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'name' => Yii::t('rbac', 'Name'),
+            'description' => Yii::t('rbac', 'Description'),
+            'rule' => Yii::t('rbac', 'Rule'),
+            'children' => Yii::t('rbac', 'Children'),
+            'item' => Yii::t('rbac', 'Item'),
+        ];
+    }
 }

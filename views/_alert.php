@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var $module wh\rbac\Module
- */
-
-?>
 
 <?php if ($module->enableFlashMessages): ?>
     <div class="row">

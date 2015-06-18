@@ -20,7 +20,7 @@ class Module extends \yii\base\Module
     public $admins = [];
     
     /** @inheritdoc */
-    public function behaviors()
+    /*public function behaviors()
     {
         return [
             'access' => [
@@ -36,5 +36,5 @@ class Module extends \yii\base\Module
                 ],
             ],
         ];
-    }
+    }*/
 }

@@ -10,11 +10,17 @@ class Permission extends AuthItem
     public function getUnassignedItems()
     {
         return ArrayHelper::map(
-            $this->manager->getItems(Item::TYPE_PERMISSION, $this->item !== null ? [$this->item->name] : []), 
+            //$this->manager->getItems(Item::TYPE_PERMISSION, $this->item !== null ? [$this->item->name] : []),
+            $this->getItems(),
             'name', 
             function ($item) {
                 return empty($item->description) ? $item->name : $item->name . ' (' . $item->description . ')';
             });
+    }
+
+    protected function getItems()
+    {
+        return $this->manager->getPermissions();
     }
 
     /** @inheritdoc */
